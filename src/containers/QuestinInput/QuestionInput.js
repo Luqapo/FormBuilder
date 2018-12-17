@@ -44,7 +44,7 @@ class QuestionInput extends Component {
     render(){
         return (
             <div className="Input">
-                <form>
+                <form className="Form">
                     <input 
                         type="text" 
                         name="question" 
