@@ -1,0 +1,11 @@
+.Nav {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    color: blue;
+}
+
+.Nav:hover {
+    color: red;
+    cursor: pointer;
+}

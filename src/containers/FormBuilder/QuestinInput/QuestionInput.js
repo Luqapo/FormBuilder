@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import idb from 'idb';
 
 import RadioInput from '../RadioInput/RadioInput';
 import TextInput from '../TextInput/TextInput';
@@ -59,20 +60,43 @@ class QuestionInput extends Component {
     handleSubImput = () => {
         if(this.state.type === "yes/no"){
             this.setState({
-                subInput: <RadioInput handleDelete={this.handleDelete} formObject={this.state.formObject}/>
+                subInput: <RadioInput 
+                            handleDelete={this.handleDelete} 
+                            formObject={this.state.formObject}/>
             })
         } else if(this.state.type === "text"){
             this.setState({
-                subInput: <TextInput handleDelete={this.handleDelete} formObject={this.state.formObject}/>
+                subInput: <TextInput 
+                            handleDelete={this.handleDelete} 
+                            formObject={this.state.formObject}/>
             })
         } else {
             this.setState({
-                subInput: <NumberInput handleDelete={this.handleDelete} formObject={this.state.formObject}/>
+                subInput: <NumberInput 
+                            handleDelete={this.handleDelete} 
+                            formObject={this.state.formObject}
+                            handleSave={this.props.handleSave}/>
             })
         }
     }
 
+    handleSave = (data) => {
+        async function putSomeData(data) {
+            let db = await idb.open('db-name', 1, upgradeDB => upgradeDB.createObjectStore('objectStoreName', { autoIncrement: true }))
+        
+            let tx = db.transaction('objectStoreName', 'readwrite')
+            let store = tx.objectStore('objectStoreName')
+        
+            await store.put(data);
+        
+            await tx.complete
+            db.close()
+        }
+        putSomeData(data);
+    }
+
     render(){
+        const disabled = Boolean(this.props.formObject)
         return (
             <div className="Input">
                 <form className="Form">
@@ -93,6 +117,8 @@ class QuestionInput extends Component {
                 </form>
                 <button onClick={this.handleAddInput}>Add Sub-Input</button>
                 <button onClick={this.props.handleDelete}>Delete</button>
+                <button onClick={() => this.handleSave(this.state.formObject)}
+                        disabled={!disabled}>Save Form</button>
                 {this.state.subInput}
             </div>
         )
