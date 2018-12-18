@@ -4,13 +4,14 @@ import QuestionInput from '../QuestinInput/QuestionInput';
 class RadioInput extends Component {
 
     state = {
-        condiotion: '',
-        input: null
+        condition: '===',
+        value: ''
     }
 
-    handleCondiotion = (event) => {
+    handleChange = (event) => {
+        const name = event.target.name;
         this.setState({
-            condiotion: event.target.value
+            [name]: event.target.value
         })
     }
 
@@ -19,12 +20,19 @@ class RadioInput extends Component {
             <div>
                 <form>
                     <label>Condiotion</label>
-                    <select onChange={this.handleCondiotion}>
+                    <select name="condition" onChange={this.handleChange}>
+                        <option value="===">Equals</option>
+                    </select>
+                    <select name="value" onChange={this.handleChange}>
                         <option value="no">No</option>
                         <option value="yes">Yes</option>
                     </select>
                 </form>
-                <QuestionInput handleDelete={this.props.handleDelete}/>
+                <QuestionInput 
+                    handleDelete={this.props.handleDelete} 
+                    formObject={this.props.formObject}
+                    condition={this.state.condition}
+                    value={this.state.value}/>
             </div>
         )
     }

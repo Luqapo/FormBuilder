@@ -10,39 +10,64 @@ class QuestionInput extends Component {
     state = {
         question: '',
         type: 'text',
-        subInput: null
+        subInput: null,
+        formObject: []
     }
 
-    handleType = (event) => {
-        this.setState({
-            type: event.target.value
-        })
+    componentDidMount(){
+        if(this.props.formObject){
+            this.setState({
+                formObject: this.props.formObject
+            })
+        }
     }
 
-    handleQuestion = (event) => {
+    handleChange = (event) => {
+        const name = event.target.name;
         this.setState({
-            question: event.target.value
+            [name]: event.target.value
         })
     }
 
     handleDelete = () => {
+        const newState = this.state.formObject.map(item => item);
+        newState.pop();
         this.setState({
-            subInput: null
+            subInput: null,
+            formObject: newState
         })
     }
 
-    handleSubImput = (event) => {
+    handleAddInput = () => {
+        const object = {
+            question: this.state.question,
+            type: this.state.type,
+            condition: this.props.condition,
+            value: this.props.value
+        }
+
+        const newState = this.state.formObject.map(item => item);
+        newState.push(object);
+
+        console.log(newState);
+
+        this.setState({
+            formObject: newState
+        }, ()=> this.handleSubImput() );
+    }
+ 
+    handleSubImput = () => {
         if(this.state.type === "yes/no"){
             this.setState({
-                subInput: <RadioInput handleDelete={this.handleDelete}/>
+                subInput: <RadioInput handleDelete={this.handleDelete} formObject={this.state.formObject}/>
             })
         } else if(this.state.type === "text"){
             this.setState({
-                subInput: <TextInput handleDelete={this.handleDelete}/>
+                subInput: <TextInput handleDelete={this.handleDelete} formObject={this.state.formObject}/>
             })
         } else {
             this.setState({
-                subInput: <NumberInput handleDelete={this.handleDelete}/>
+                subInput: <NumberInput handleDelete={this.handleDelete} formObject={this.state.formObject}/>
             })
         }
     }
@@ -56,14 +81,17 @@ class QuestionInput extends Component {
                         name="question" 
                         placeholder="Your question?"
                         value={this.state.question}
-                        onChange={this.handleQuestion}/>
-                    <select value={this.state.type} onChange={this.handleType}>
+                        onChange={this.handleChange}/>
+                    <select 
+                            value={this.state.type} 
+                            onChange={this.handleChange}
+                            name="type">
                         <option value="text">Text</option>
                         <option value="number">Number</option>
                         <option value="yes/no">Yes/No</option>
                     </select>
                 </form>
-                <button onClick={this.handleSubImput}>Add Sub-Input</button>
+                <button onClick={this.handleAddInput}>Add Sub-Input</button>
                 <button onClick={this.props.handleDelete}>Delete</button>
                 {this.state.subInput}
             </div>
