@@ -11,9 +11,10 @@ class Form extends Component {
     }
 
     componentDidMount(){
+        const newResult = this.props.data.map(el => ({...el}));
         this.setState({
             formJson: this.props.data,
-            formResult: this.props.data
+            formResult: newResult
         })
     }
 
@@ -37,17 +38,24 @@ class Form extends Component {
                 })
             }
         } else if(this.state.formJson[this.state.index + 1].condition === ">"){
-            if(this.state.formJson[this.state.index + 1].value < this.state.value){
-                console.log(this.state.formJson[this.state.index+1].value);
-                console.log(this.state.value);
-                console.log(this.state.index);
+            if(Number(this.state.formJson[this.state.index + 1].value) < Number(this.state.value)){
                 const newReasult = {...this.state.formResult};
                 newReasult[this.state.index].answer = this.state.value
                 this.setState({
                     formResult: newReasult,
                     index: this.state.index + 1,
                     value: ''
-                }, () => console.log(this.state.formResult))
+                })
+            }
+        } else if(this.state.formJson[this.state.index + 1].condition === "<"){
+            if(Number(this.state.formJson[this.state.index + 1].value) > Number(this.state.value)){
+                const newReasult = {...this.state.formResult};
+                newReasult[this.state.index].answer = this.state.value
+                this.setState({
+                    formResult: newReasult,
+                    index: this.state.index + 1,
+                    value: ''
+                })
             }
         }
     }
@@ -58,13 +66,14 @@ class Form extends Component {
 
         return (
             <div>
-                <form>
+                <form className="Form">
                     <Input 
                         type={element.type} 
                         question={element.question} 
                         name="value"
                         value={this.state.value}
                         onChange={this.handleChange}/>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
 

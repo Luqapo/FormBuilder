@@ -5,7 +5,7 @@
     color: blue;
 }
 
-.Nav:hover {
+.Nav li:hover {
     color: red;
     cursor: pointer;
 }
