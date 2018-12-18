@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import idb from 'idb';
 
-class Form extends Component {
+import Form from './Form/Form';
+
+class FormsList extends Component {
     state = {
         forms: null
     }
@@ -32,7 +34,7 @@ class Form extends Component {
     render(){
         let elements = null;
         if(this.state.forms){
-            elements = this.state.forms.map(el => <h4>Jeden form</h4>);
+            elements = this.state.forms.map((el,index) => <Form key={index} data={el} />);
         }
         return (
             <div>
@@ -43,4 +45,4 @@ class Form extends Component {
     }
 }
 
-export default Form;
+export default FormsList;

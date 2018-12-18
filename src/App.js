@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import FormBuilder from './containers/FormBuilder/FormBuilder';
-import Form from './containers/Form/Form';
+import FormsList from './containers/FormsList/FormsList';
 import Nav from './components/Nav/Nav';
 import './App.css';
 
@@ -16,7 +16,7 @@ class App extends Component {
         <Nav />
         <Switch>
           <Route path="/form-builder" component={FormBuilder} />
-          <Route path="/form" component={Form} />
+          <Route path="/form" component={FormsList} />
         </Switch>
       </div>
     )
