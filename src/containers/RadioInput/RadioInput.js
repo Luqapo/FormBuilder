@@ -9,17 +9,8 @@ class RadioInput extends Component {
     }
 
     handleCondiotion = (event) => {
-        if(event.target.value === 'yes'){
-            this.setState({
-                condiotion: event.target.value,
-                input: <QuestionInput handleDelete={this.handleDelete}/>
-            })
-        }  
-    }
-
-    handleDelete = () => {
         this.setState({
-            input: null
+            condiotion: event.target.value
         })
     }
 
@@ -33,7 +24,7 @@ class RadioInput extends Component {
                         <option value="yes">Yes</option>
                     </select>
                 </form>
-                {this.state.input}
+                <QuestionInput handleDelete={this.props.handleDelete}/>
             </div>
         )
     }

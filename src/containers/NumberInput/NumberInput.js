@@ -6,7 +6,7 @@ class NumberInput extends Component {
 
     state = {
         value: '',
-        condition: 'equals'
+        condition: "==="
     }
 
     handleChange = (event) => {
@@ -27,14 +27,14 @@ class NumberInput extends Component {
                 <form>
                     <label>Condiotion
                         <select value={this.state.condition}>
-                            <option value="equals">Equals</option>
-                            <option value="greater">Greather than</option>
-                            <option value="less">Less than</option>
+                            <option value="===">Equals</option>
+                            <option value=">">Greather than</option>
+                            <option value="<">Less than</option>
                         </select>
                     </label>
                     <input type="number" onChange={this.handleChange} value={this.state.text}/>
                 </form>
-                {this.state.value ? <QuestionInput /> : null}
+                <QuestionInput handleDelete={this.props.handleDelete}/>
             </div>
         )
     }

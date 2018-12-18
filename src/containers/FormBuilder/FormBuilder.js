@@ -8,15 +8,14 @@ class FormBuilder extends Component {
         form: []
     }
 
-    componentDidMount(){
+    handleSave =(data) => {
         async function putSomeData() {
             let db = await idb.open('db-name', 1, upgradeDB => upgradeDB.createObjectStore('objectStoreName', { autoIncrement: true }))
         
             let tx = db.transaction('objectStoreName', 'readwrite')
             let store = tx.objectStore('objectStoreName')
         
-            await store.put({ firstname: 'John', lastname: 'Doe', age: 33 })
-            await store.put({ firstname: 'John2', lastname: 'Doe', age: 335 })
+            await store.put(data);
         
             await tx.complete
             db.close()

@@ -25,18 +25,24 @@ class QuestionInput extends Component {
         })
     }
 
+    handleDelete = () => {
+        this.setState({
+            subInput: null
+        })
+    }
+
     handleSubImput = (event) => {
         if(this.state.type === "yes/no"){
             this.setState({
-                subInput: <RadioInput />
+                subInput: <RadioInput handleDelete={this.handleDelete}/>
             })
         } else if(this.state.type === "text"){
             this.setState({
-                subInput: <TextInput />
+                subInput: <TextInput handleDelete={this.handleDelete}/>
             })
         } else {
             this.setState({
-                subInput: <NumberInput />
+                subInput: <NumberInput handleDelete={this.handleDelete}/>
             })
         }
     }

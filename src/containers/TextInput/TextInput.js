@@ -5,7 +5,8 @@ import QuestionInput from '../QuestinInput/QuestionInput';
 class TextInput extends Component {
 
     state = {
-        text: ''
+        text: '',
+        condition: "==="
     }
 
     handleChange = (event) => {
@@ -20,12 +21,12 @@ class TextInput extends Component {
                 <form>
                     <label>Condiotion
                         <select>
-                            <option>Equals</option>
+                            <option value="===">Equals</option>
                         </select>
                     </label>
                     <input type="text" onChange={this.handleChange} value={this.state.text}/>
                 </form>
-                {this.state.text ? <QuestionInput /> : null}
+                <QuestionInput handleDelete={this.props.handleDelete}/>
             </div>
         )
     }
