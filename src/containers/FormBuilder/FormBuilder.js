@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import QuestionInput from './QuestinInput/QuestionInput';
+import FormWrapper from './FormWrapper/FormWrapper';
 
 class FormBuilder extends Component {
     state = {
@@ -27,7 +27,7 @@ class FormBuilder extends Component {
         return (
             <div>
                 {this.state.form.map((form,index) => 
-                    <QuestionInput 
+                    <FormWrapper 
                             key={index} 
                             handleDelete={() => this.handleDelete(index)} 
                             />)}             
