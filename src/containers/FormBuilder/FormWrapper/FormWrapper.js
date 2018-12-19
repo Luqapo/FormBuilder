@@ -10,7 +10,7 @@ import BuildWrapper from '../../../components/BuildWrapper/BuildWrapper'
 class FormWrapper extends Component {
     state = {
         question: '',
-        type: '',
+        type: 'text',
         condition: "===",
         value: '',
         subInput: null,
@@ -26,20 +26,13 @@ class FormWrapper extends Component {
     }
 
     handleDelete = () => {
-        if(this.props.handleDelete){
-            this.props.handleDelete();
-        } else {
-            console.log('kasuje');
-            const newState = this.state.formObject.map(item => item);
-            newState.pop();
-            this.setState({
-                subInput: null,
-                formObject: newState
-            }, () => console.log(this.state))
-        }
-        
+        const newState = this.state.formObject.map(item => item);
+        newState.pop();
+        this.setState({
+            subInput: null,
+            formObject: newState
+        }, () => console.log(this.state))  
     }
-
 
     handleChange = (event) => {
         const name = event.target.name;
@@ -69,15 +62,24 @@ class FormWrapper extends Component {
     handleSubImput = () => {
         if(this.state.type === "yes/no"){
             this.setState({
-                subInput: <BuildWrapper type="yes/no" formObject={this.state.formObject}/>
+                subInput: <BuildWrapper 
+                            type="yes/no" 
+                            formObject={this.state.formObject} 
+                            handleDelete={this.handleDelete}/>
             })
         } else if(this.state.type === "text"){
             this.setState({
-                subInput: <BuildWrapper type="text" formObject={this.state.formObject}/>
+                subInput: <BuildWrapper 
+                            type="text" 
+                            formObject={this.state.formObject} 
+                            handleDelete={this.handleDelete}/>
             })
         } else if(this.state.type === "number"){
             this.setState({
-                subInput: <BuildWrapper type="number" formObject={this.state.formObject}/>
+                subInput: <BuildWrapper 
+                            type="number" 
+                            formObject={this.state.formObject} 
+                            handleDelete={this.handleDelete}/>
             })
         }
     }
@@ -121,7 +123,7 @@ class FormWrapper extends Component {
                     {conditionElement}
                     <QuestionInput 
                         handleChange={this.handleChange}
-                        handleDelete={this.handleDelete}
+                        handleDelete={this.props.handleDelete}
                         handleSave={this.handleSave}
                         handleAddInput={this.handleAddInput}
                         formObject={this.state.formObject}
