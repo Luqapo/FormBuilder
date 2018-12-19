@@ -10,10 +10,10 @@ class FormsList extends Component {
 
     componentDidMount(){
         async function getAllData() {
-            let db = await idb.open('db-FormBuilder', 1)
+            let db = await idb.open('db-FormBuilder', 2)
         
-            let tx = db.transaction('objectStoreForms', 'readonly')
-            let store = tx.objectStore('objectStoreForms')
+            let tx = db.transaction('objectStoreForm', 'readonly')
+            let store = tx.objectStore('objectStoreForm')
         
             // add, clear, count, delete, get, getAll, getAllKeys, getKey, put
             let allSavedItems = await store.getAll()

@@ -3,36 +3,38 @@ import React from 'react';
 const Input = (props) => {
     let inputElement = null;
     
-
     switch ( props.type ) {
         case ( 'text' ):
             inputElement = (
-                <div>
-                    <label>{`${props.question}? `}
-                        <input type="text" name="value" value={props.value} onChange={props.onChange} />
-                    </label>
-                    
+                <div className="FormControl">
+                    <label>{`${props.question}? `}</label>
+                    <input type="text" 
+                        name="value" 
+                        value={props.value} 
+                        onChange={props.onChange} />
                 </div>
             );
             break;
         case ( 'number' ):
             inputElement = (
-                <div>
-                    <label>{`${props.question}? `}
-                        <input type="number" name="value" value={props.value} onChange={props.onChange} />
-                    </label>
+                <div className="FormControl">
+                    <label>{`${props.question}? `}</label>
+                    <input type="number" 
+                        name="value" value={props.value} 
+                        onChange={props.onChange} />
                 </div>
             );
             break;
         case ( 'yes/no' ):
             inputElement = (
-                <div>
-                    <label>{`${props.question}? `}
-                        <select name="value" onChange={props.onChange} value={props.value}>
-                            <option value="no">No</option>
-                            <option value="yes">Yes</option>
-                        </select>
-                    </label>
+                <div className="FormControl">
+                    <label>{`${props.question}? `}</label>
+                    <select name="value" 
+                        onChange={props.onChange} 
+                        value={props.value}>
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>   
                 </div>
             );
             break;

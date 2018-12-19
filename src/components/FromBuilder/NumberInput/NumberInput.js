@@ -15,7 +15,7 @@ const NumberInput = (props) => {
                     <input type="number" 
                            name="value"
                            onChange={props.handleChange} 
-                           value={props.vale}/>
+                           value={props.value}/>
                 </div>
             </div>
         )

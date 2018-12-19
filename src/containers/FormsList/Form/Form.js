@@ -11,7 +11,7 @@ class Form extends Component {
     }
 
     componentDidMount(){
-        const newResult = this.props.data.map(el => ({...el}));
+        const newResult = this.props.data.map( el => [ el.question ] )
         this.setState({
             formJson: this.props.data,
             formResult: newResult
@@ -22,8 +22,14 @@ class Form extends Component {
         this.setState({
             value: event.target.value
         }, () => {
-            this.validateInput();
+            this.checkIndex();
         })
+    }
+
+    checkIndex = () => {
+        if(this.state.index < this.state.formJson.length-1){
+            this.validateInput();
+        }
     }
 
     validateInput = () => {
@@ -60,20 +66,34 @@ class Form extends Component {
         }
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const newReasult = {...this.state.formResult};
+                newReasult[this.state.index].answer = this.state.value
+                this.setState({
+                    formResult: newReasult
+                }, () => console.log(this.state.formResult))
+    }
+
     render(){
     
         const element = this.props.data[this.state.index];
+        let endInfo = null;
+        if(this.state.index === this.state.formJson.length-1){
+            endInfo = <p>No more questions. Thanks</p>
+        }
 
         return (
             <div>
-                <form className="Form">
+                <form className="Form" onSubmit={this.handleSubmit}>
                     <Input 
                         type={element.type} 
                         question={element.question} 
                         name="value"
                         value={this.state.value}
                         onChange={this.handleChange}/>
-                    <button type="submit">Submit</button>
+                    {endInfo}
+                    <button type="submit" disabled={!endInfo}>Submit</button>
                 </form>
             </div>
 

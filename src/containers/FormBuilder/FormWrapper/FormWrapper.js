@@ -42,19 +42,19 @@ class FormWrapper extends Component {
     }
 
     handleAddInput = () => {
-        const object = {
-            question: this.state.question,
-            type: this.state.type,
-            condition: this.state.condition,
-            value: this.state.value
-        }
+            const object = {
+                question: this.state.question,
+                type: this.state.type,
+                condition: this.state.condition,
+                value: this.state.value
+            }
 
-        const newState = [...this.state.formObject];
-        newState.push(object);
+            const newState = [...this.state.formObject];
+            newState.push(object);
 
-        this.setState({
-            formObject: newState
-        }, ()=> this.handleSubImput() );
+            this.setState({
+                formObject: newState
+            }, ()=> this.handleSubImput() );
     }
 
     handleSubImput = () => {
@@ -83,11 +83,27 @@ class FormWrapper extends Component {
     }
 
     handleSave = () => {
+            const object = {
+                question: this.state.question,
+                type: this.state.type,
+                condition: this.state.condition,
+                value: this.state.value
+            }
+
+            const newState = [...this.state.formObject];
+            newState.push(object);
+
+            this.setState({
+                formObject: newState
+            }, ()=> this.saveForm() );
+    }
+
+    saveForm = () => {
         async function putSomeData(data) {
-            let db = await idb.open('db-FormBuilder', 1, upgradeDB => upgradeDB.createObjectStore('objectStoreForms', { autoIncrement: true }))
+            let db = await idb.open('db-FormBuilder', 2, upgradeDB => upgradeDB.createObjectStore('objectStoreForm', { autoIncrement: true }))
         
-            let tx = db.transaction('objectStoreForms', 'readwrite')
-            let store = tx.objectStore('objectStoreForms')
+            let tx = db.transaction('objectStoreForm', 'readwrite')
+            let store = tx.objectStore('objectStoreForm')
         
             await store.put(data);
         
@@ -100,8 +116,9 @@ class FormWrapper extends Component {
 
     validateInputs = () => {
         if(this.state.question && (this.props.value || this.state.value)){
-            this.handleAddInput();
+            return true;
         }
+        return false;
     }
 
     render() {
@@ -122,7 +139,7 @@ class FormWrapper extends Component {
                                     value={this.state.value} 
                                     condition={this.state.condition}/>
         }
-        
+
         return (
             <div>
                 <div className="Form">
@@ -131,9 +148,10 @@ class FormWrapper extends Component {
                         handleChange={this.handleChange}
                         handleDelete={this.props.handleDelete}
                         handleSave={this.handleSave}
-                        handleAddInput={this.validateInputs}
+                        handleAddInput={this.handleAddInput}
                         formObject={this.state.formObject}
                         question={this.state.question}
+                        disabled={this.validateInputs()}
                         type={this.state.type}/>
                 </div>
                 {this.state.subInput}

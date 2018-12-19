@@ -3,7 +3,6 @@ import React from 'react';
 import './QuestionInput.css';
 
 const QuestionInput = (props) => {
-        const disabled = Boolean(props.formObject.length < 1)
         return (
             <div>
                 <div>
@@ -29,10 +28,11 @@ const QuestionInput = (props) => {
                             </select>
                         </div>
                     </div>
-                    <button onClick={props.handleAddInput}>Add Sub-Input</button>
+                    <button onClick={props.handleAddInput}
+                        disabled={!props.disabled}>Add Sub-Input</button>
                     <button onClick={props.handleDelete}>Delete</button>
                     <button onClick={props.handleSave}
-                            disabled={disabled}>Save Form</button>
+                            disabled={!props.disabled}>Save Form</button>
                 </div>
             </div>
         )
