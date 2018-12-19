@@ -98,27 +98,33 @@ class QuestionInput extends Component {
     render(){
         const disabled = Boolean(this.props.formObject)
         return (
-            <div className="Input">
-                <form className="Form">
-                    <input 
-                        type="text" 
-                        name="question" 
-                        placeholder="Your question?"
-                        value={this.state.question}
-                        onChange={this.handleChange}/>
-                    <select 
-                            value={this.state.type} 
-                            onChange={this.handleChange}
-                            name="type">
-                        <option value="text">Text</option>
-                        <option value="number">Number</option>
-                        <option value="yes/no">Yes/No</option>
-                    </select>
-                </form>
-                <button onClick={this.handleAddInput}>Add Sub-Input</button>
-                <button onClick={this.props.handleDelete}>Delete</button>
-                <button onClick={() => this.handleSave(this.state.formObject)}
-                        disabled={!disabled}>Save Form</button>
+            <div>
+                <div className="Form">
+                    <form>
+                        <label>Question
+                            <input 
+                                type="text" 
+                                name="question" 
+                                placeholder="Your question?"
+                                value={this.state.question}
+                                onChange={this.handleChange}/>
+                        </label>
+                        <label>Type
+                            <select 
+                                    value={this.state.type} 
+                                    onChange={this.handleChange}
+                                    name="type">
+                                <option value="text">Text</option>
+                                <option value="number">Number</option>
+                                <option value="yes/no">Yes/No</option>
+                            </select>
+                        </label>
+                    </form>
+                    <button onClick={this.handleAddInput}>Add Sub-Input</button>
+                    <button onClick={this.props.handleDelete}>Delete</button>
+                    <button onClick={() => this.handleSave(this.state.formObject)}
+                            disabled={!disabled}>Save Form</button>
+                </div>
                 {this.state.subInput}
             </div>
         )

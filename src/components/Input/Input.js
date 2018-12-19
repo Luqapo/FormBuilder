@@ -8,7 +8,7 @@ const Input = (props) => {
         case ( 'text' ):
             inputElement = (
                 <div>
-                    <label>{props.question}
+                    <label>{`${props.question}? `}
                         <input type="text" name="value" value={props.value} onChange={props.onChange} />
                     </label>
                     
@@ -18,7 +18,7 @@ const Input = (props) => {
         case ( 'number' ):
             inputElement = (
                 <div>
-                    <label>{props.question}
+                    <label>{`${props.question}? `}
                         <input type="number" name="value" value={props.value} onChange={props.onChange} />
                     </label>
                 </div>
@@ -27,7 +27,7 @@ const Input = (props) => {
         case ( 'yes/no' ):
             inputElement = (
                 <div>
-                    <label>{props.question}
+                    <label>{`${props.question}? `}
                         <select name="value" onChange={props.onChange} value={props.value}>
                             <option value="no">No</option>
                             <option value="yes">Yes</option>

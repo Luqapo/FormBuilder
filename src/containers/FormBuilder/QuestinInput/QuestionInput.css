@@ -7,6 +7,15 @@
 .Form {
     width: 300px;
     margin: 10px auto;
-    border: 1px solid red;
+    border: 1px solid grey;
     padding: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+input[name="question"], select[name="type"] {
+    width: 200px;
+}
+
+input[type="number"] {
+    width: 100px;
 }

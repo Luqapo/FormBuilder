@@ -27,9 +27,10 @@ class FormBuilder extends Component {
         return (
             <div>
                 {this.state.form.map((form,index) => 
-                    <QuestionInput key={index} 
+                    <QuestionInput 
+                            key={index} 
                             handleDelete={() => this.handleDelete(index)} 
-                            handleSave={this.handleSave}/>)}             
+                            />)}             
                 <button onClick={this.handleAddInput}>Add Input</button>
             </div>
         )
