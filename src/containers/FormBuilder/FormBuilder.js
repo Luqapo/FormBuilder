@@ -8,7 +8,7 @@ class FormBuilder extends Component {
     }
 
     handleAddInput = () => {
-        const newState = this.state.form.map(item => item);
+        const newState = [...this.state.form];
         newState.push([]);
         this.setState({
             form: newState
@@ -16,7 +16,7 @@ class FormBuilder extends Component {
     }
 
     handleDelete = (index) => {
-        const newState = this.state.form.map(item => item);
+        const newState = [...this.state.form];
         newState.splice(index, 1);
         this.setState({
             form: newState
@@ -26,6 +26,7 @@ class FormBuilder extends Component {
     render(){
         return (
             <div>
+                <h3>Form builder</h3>
                 {this.state.form.map((form,index) => 
                     <FormWrapper 
                             key={index} 

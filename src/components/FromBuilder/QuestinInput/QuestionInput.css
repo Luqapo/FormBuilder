@@ -12,6 +12,16 @@
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
+.FormControl {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+input, label {
+    display: block;
+}
+
 input[name="question"], select[name="type"] {
     width: 200px;
 }
@@ -19,3 +29,26 @@ input[name="question"], select[name="type"] {
 input[type="number"] {
     width: 100px;
 }
+
+button {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;
+    font: inherit;
+    border: 1px solid white;
+    color: black;
+    background: lightgrey;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  button:hover,
+  button:active {
+    background-color: white;
+    color: black;
+  }
+
+  button:disabled {
+    background-color: white;
+    color: red;
+  }

@@ -3,12 +3,11 @@ import React from 'react';
 const TextInput = (props) => {
         return (
             <div>
-                <form>
-                    <label>Condiotion
-                        <select>
-                            <option value="===">Equals</option>
-                        </select>
-                    </label>
+                <form className="FormControl">
+                    <label>Condiotion</label>
+                    <select>
+                        <option value="===">Equals</option>
+                    </select>
                     <input 
                         type="text" 
                         name="value" 

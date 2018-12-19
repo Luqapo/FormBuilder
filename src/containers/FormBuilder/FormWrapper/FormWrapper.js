@@ -31,7 +31,7 @@ class FormWrapper extends Component {
         this.setState({
             subInput: null,
             formObject: newState
-        }, () => console.log(this.state))  
+        })  
     }
 
     handleChange = (event) => {
@@ -51,8 +51,6 @@ class FormWrapper extends Component {
 
         const newState = this.state.formObject.map(item => item);
         newState.push(object);
-
-        console.log(newState);
 
         this.setState({
             formObject: newState
@@ -85,18 +83,19 @@ class FormWrapper extends Component {
     }
 
     handleSave = () => {
-        async function putSomeData() {
-            let db = await idb.open('db-name', 1, upgradeDB => upgradeDB.createObjectStore('objectStoreName', { autoIncrement: true }))
+        async function putSomeData(data) {
+            let db = await idb.open('db-FormBuilder', 1, upgradeDB => upgradeDB.createObjectStore('objectStoreForms', { autoIncrement: true }))
         
-            let tx = db.transaction('objectStoreName', 'readwrite')
-            let store = tx.objectStore('objectStoreName')
+            let tx = db.transaction('objectStoreForms', 'readwrite')
+            let store = tx.objectStore('objectStoreForms')
         
-            await store.put(this.state.formObject);
+            await store.put(data);
         
             await tx.complete
             db.close()
         }
-        putSomeData();
+        const dataToSave = this.state.formObject;
+        putSomeData(dataToSave);
     }
 
     render() {

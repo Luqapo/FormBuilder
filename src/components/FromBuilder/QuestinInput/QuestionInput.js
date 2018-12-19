@@ -3,20 +3,22 @@ import React from 'react';
 import './QuestionInput.css';
 
 const QuestionInput = (props) => {
-        const disabled = Boolean(props.formObject)
+        const disabled = Boolean(props.formObject.length < 1)
         return (
             <div>
                 <div>
                     <form>
-                        <label>Question
+                        <div className="FormControl">
+                            <label>Question</label>
                             <input 
                                 type="text" 
                                 name="question" 
                                 placeholder="Your question?"
                                 value={props.question}
                                 onChange={props.handleChange}/>
-                        </label>
-                        <label>Type
+                        </div>
+                        <div className="FormControl">
+                            <label>Type</label>
                             <select 
                                     value={props.type} 
                                     onChange={props.handleChange}
@@ -25,12 +27,12 @@ const QuestionInput = (props) => {
                                 <option value="number">Number</option>
                                 <option value="yes/no">Yes/No</option>
                             </select>
-                        </label>
+                        </div>
                     </form>
                     <button onClick={props.handleAddInput}>Add Sub-Input</button>
                     <button onClick={props.handleDelete}>Delete</button>
                     <button onClick={props.handleSave}
-                            disabled={!disabled}>Save Form</button>
+                            disabled={disabled}>Save Form</button>
                 </div>
             </div>
         )
