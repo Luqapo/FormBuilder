@@ -49,7 +49,7 @@ class FormWrapper extends Component {
             value: this.state.value
         }
 
-        const newState = this.state.formObject.map(item => item);
+        const newState = [...this.state.formObject];
         newState.push(object);
 
         this.setState({
@@ -61,7 +61,7 @@ class FormWrapper extends Component {
         if(this.state.type === "yes/no"){
             this.setState({
                 subInput: <BuildWrapper 
-                            type="yes/no" 
+                            type="yes/no"
                             formObject={this.state.formObject} 
                             handleDelete={this.handleDelete}/>
             })
@@ -98,6 +98,12 @@ class FormWrapper extends Component {
         putSomeData(dataToSave);
     }
 
+    validateInputs = () => {
+        if(this.state.question && (this.props.value || this.state.value)){
+            this.handleAddInput();
+        }
+    }
+
     render() {
         let conditionElement;
         if(this.props.type === "yes/no"){
@@ -116,6 +122,7 @@ class FormWrapper extends Component {
                                     value={this.state.value} 
                                     condition={this.state.condition}/>
         }
+        
         return (
             <div>
                 <div className="Form">
@@ -124,7 +131,7 @@ class FormWrapper extends Component {
                         handleChange={this.handleChange}
                         handleDelete={this.props.handleDelete}
                         handleSave={this.handleSave}
-                        handleAddInput={this.handleAddInput}
+                        handleAddInput={this.validateInputs}
                         formObject={this.state.formObject}
                         question={this.state.question}
                         type={this.state.type}/>

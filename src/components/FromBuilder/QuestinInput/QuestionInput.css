@@ -20,6 +20,7 @@
 
 input, label {
     display: block;
+    outline-color: grey;
 }
 
 input[name="question"], select[name="type"] {

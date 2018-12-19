@@ -7,7 +7,7 @@ const QuestionInput = (props) => {
         return (
             <div>
                 <div>
-                    <form>
+                    <div>
                         <div className="FormControl">
                             <label>Question</label>
                             <input 
@@ -28,7 +28,7 @@ const QuestionInput = (props) => {
                                 <option value="yes/no">Yes/No</option>
                             </select>
                         </div>
-                    </form>
+                    </div>
                     <button onClick={props.handleAddInput}>Add Sub-Input</button>
                     <button onClick={props.handleDelete}>Delete</button>
                     <button onClick={props.handleSave}

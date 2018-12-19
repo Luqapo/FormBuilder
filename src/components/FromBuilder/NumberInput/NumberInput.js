@@ -3,7 +3,7 @@ import React from 'react';
 const NumberInput = (props) => {
         return (
             <div>
-                <form className="FormControl">
+                <div className="FormControl">
                     <label>Condiotion</label>
                     <select value={props.condition}
                             name="condition"
@@ -16,7 +16,7 @@ const NumberInput = (props) => {
                            name="value"
                            onChange={props.handleChange} 
                            value={props.vale}/>
-                </form>
+                </div>
             </div>
         )
 }

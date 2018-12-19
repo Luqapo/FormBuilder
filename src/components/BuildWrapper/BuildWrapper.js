@@ -8,7 +8,7 @@ const BuildWrapper = (props) => {
             <FormWrapper 
                 type={props.type} 
                 formObject={props.formObject} 
-                handleDelete={props.handleDelete} />
+                handleDelete={props.handleDelete}/>
         </div>
     )
 }
