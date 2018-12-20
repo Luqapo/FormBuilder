@@ -115,7 +115,7 @@ class FormWrapper extends Component {
     }
 
     validateInputs = () => {
-        if(this.state.question && (this.props.value || this.state.value)){
+        if(this.state.question && (this.props.value || this.state.value) && !this.state.subInput){
             return true;
         }
         return false;
@@ -152,6 +152,7 @@ class FormWrapper extends Component {
                         formObject={this.state.formObject}
                         question={this.state.question}
                         disabled={this.validateInputs()}
+                        disableDelete={this.state.subInput}
                         type={this.state.type}/>
                 </div>
                 {this.state.subInput}

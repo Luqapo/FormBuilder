@@ -31,7 +31,8 @@ const QuestionInput = (props) => {
                         disabled={!props.disabled}>
                     Add Sub-Input
                 </button>
-                <button onClick={props.handleDelete}>
+                <button onClick={props.handleDelete}
+                        disabled={props.disableDelete}>
                     Delete
                 </button>
                 <button onClick={props.handleSave}
