@@ -47,7 +47,7 @@ class FormWrapper extends Component {
                 type: this.state.type,
                 condition: this.state.condition,
                 value: this.state.value
-            }
+            };
 
             const newState = [...this.state.formObject];
             newState.push(object);
@@ -64,21 +64,21 @@ class FormWrapper extends Component {
                             type="yes/no"
                             formObject={this.state.formObject} 
                             handleDelete={this.handleDelete}/>
-            })
+            });
         } else if(this.state.type === "text"){
             this.setState({
                 subInput: <BuildWrapper 
                             type="text" 
                             formObject={this.state.formObject} 
                             handleDelete={this.handleDelete}/>
-            })
+            });
         } else if(this.state.type === "number"){
             this.setState({
                 subInput: <BuildWrapper 
                             type="number" 
                             formObject={this.state.formObject} 
                             handleDelete={this.handleDelete}/>
-            })
+            });
         }
     }
 
@@ -88,7 +88,7 @@ class FormWrapper extends Component {
                 type: this.state.type,
                 condition: this.state.condition,
                 value: this.state.value
-            }
+            };
 
             const newState = [...this.state.formObject];
             newState.push(object);
@@ -127,17 +127,17 @@ class FormWrapper extends Component {
             conditionElement =  <RadioInput 
                                     handleChange={this.handleChange} 
                                     value={this.state.value} 
-                                    condition={this.state.condition}/>   
+                                    condition={this.state.condition}/>;   
         } else if(this.props.type === "text"){
             conditionElement = <TextInput 
                                     handleChange={this.handleChange} 
                                     value={this.state.value} 
-                                    condition={this.state.condition}/>
+                                    condition={this.state.condition}/>;
         } else if(this.props.type === "number"){
             conditionElement = <NumberInput 
                                     handleChange={this.handleChange} 
                                     value={this.state.value} 
-                                    condition={this.state.condition}/>
+                                    condition={this.state.condition}/>;
         }
 
         return (

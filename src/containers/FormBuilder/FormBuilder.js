@@ -31,8 +31,7 @@ class FormBuilder extends Component {
                     <FormWrapper 
                             key={index}
                             value 
-                            handleDelete={() => this.handleDelete(index)} 
-                            />)}             
+                            handleDelete={() => this.handleDelete(index)} />)}             
                 <button onClick={this.handleAddInput}>Add Input</button>
             </div>
         )

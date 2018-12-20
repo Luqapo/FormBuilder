@@ -15,7 +15,6 @@ class FormsList extends Component {
             let tx = db.transaction('objectStoreForm', 'readonly')
             let store = tx.objectStore('objectStoreForm')
         
-            // add, clear, count, delete, get, getAll, getAllKeys, getKey, put
             let allSavedItems = await store.getAll()
         
             db.close()

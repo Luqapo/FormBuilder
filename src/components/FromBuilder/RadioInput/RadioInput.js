@@ -2,7 +2,6 @@ import React from 'react';
 
 const RadioInput = (props) =>{
         return (
-            <div>
                 <div className="FormControl">
                     <label>Condiotion</label>
                     <select name="condition" onChange={props.handleChange}>
@@ -15,7 +14,6 @@ const RadioInput = (props) =>{
                         <option value="yes">Yes</option>
                     </select>
                 </div>
-            </div>
         )
 }
 

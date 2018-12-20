@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Input = (props) => {
+    
     let inputElement = null;
     
     switch ( props.type ) {
@@ -9,9 +10,9 @@ const Input = (props) => {
                 <div className="FormControl">
                     <label>{`${props.question}? `}</label>
                     <input type="text" 
-                        name="value" 
-                        value={props.value} 
-                        onChange={props.onChange} />
+                            name="value" 
+                            value={props.value} 
+                            onChange={props.onChange} />
                 </div>
             );
             break;
@@ -20,8 +21,9 @@ const Input = (props) => {
                 <div className="FormControl">
                     <label>{`${props.question}? `}</label>
                     <input type="number" 
-                        name="value" value={props.value} 
-                        onChange={props.onChange} />
+                            name="value" 
+                            value={props.value} 
+                            onChange={props.onChange} />
                 </div>
             );
             break;
@@ -30,8 +32,8 @@ const Input = (props) => {
                 <div className="FormControl">
                     <label>{`${props.question}? `}</label>
                     <select name="value" 
-                        onChange={props.onChange} 
-                        value={props.value}>
+                            onChange={props.onChange} 
+                            value={props.value}>
                         <option value="no">No</option>
                         <option value="yes">Yes</option>
                     </select>   

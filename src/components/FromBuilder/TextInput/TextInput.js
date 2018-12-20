@@ -2,7 +2,6 @@ import React from 'react';
 
 const TextInput = (props) => {
         return (
-            <div>
                 <div className="FormControl">
                     <label>Condiotion</label>
                     <select>
@@ -14,7 +13,6 @@ const TextInput = (props) => {
                         onChange={props.handleChange} 
                         value={props.value}/>
                 </div>
-            </div>
         )
 }
 

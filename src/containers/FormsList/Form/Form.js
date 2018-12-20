@@ -72,13 +72,14 @@ class Form extends Component {
                 newReasult[this.state.index].answer = this.state.value
                 this.setState({
                     formResult: newReasult
-                }, () => console.log(this.state.formResult))
+                }, () => console.log(this.state.formResult) )
     }
 
     render(){
     
         const element = this.props.data[this.state.index];
         let endInfo = null;
+        
         if(this.state.index === this.state.formJson.length-1){
             endInfo = <p>No more questions. Thanks</p>
         }
