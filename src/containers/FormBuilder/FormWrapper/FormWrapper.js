@@ -99,19 +99,15 @@ class FormWrapper extends Component {
     }
 
     saveForm = () => {
-        async function putSomeData(data) {
-            let db = await idb.open('db-FormBuilder', 2, upgradeDB => upgradeDB.createObjectStore('objectStoreForm', { autoIncrement: true }))
-        
-            let tx = db.transaction('objectStoreForm', 'readwrite')
-            let store = tx.objectStore('objectStoreForm')
-        
-            await store.put(data);
-        
-            await tx.complete
-            db.close()
-        }
-        const dataToSave = this.state.formObject;
-        putSomeData(dataToSave);
+        const data = this.state.formObject;
+            idb.open('db-FormBuilder', 2)
+            .then(db => {
+                let tx = db.transaction('Forms', 'readwrite');
+                let store = tx.objectStore('Forms')
+                store.put(data);
+                return tx.complete;
+            })
+            .then( result => console.log('object stored'))
     }
 
     validateInputs = () => {
