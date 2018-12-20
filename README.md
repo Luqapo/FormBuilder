@@ -4,7 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The application is used to build any forms, allows you to add any number of inputs along with the expected answers, saves the template in indexedDB. In the form section, we can see the created forms and check their operation.
 
-## Technology: React, React Router, IndexedDB
+## Technology: 
+  React, React Router, IndexedDB
 
 ## Instalation:
 
