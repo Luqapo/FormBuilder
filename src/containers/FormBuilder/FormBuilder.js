@@ -57,7 +57,8 @@ class FormBuilder extends Component {
                                 data={this.state.form[index]}
                                 handleSave={this.handleSave} 
                                 handleDelete={() => this.handleDelete(index)} />
-                        <button onClick={() => this.handleSaveForm(index)}>Store Form</button>
+                        <button onClick={() => this.handleSaveForm(index)}
+                                disabled={!this.state.form[index].question}>Store Form</button>
                     </div>)}             
                 <button onClick={this.handleAddInput}>Add Input</button>
             </div>

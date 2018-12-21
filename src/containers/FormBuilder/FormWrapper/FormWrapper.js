@@ -47,9 +47,7 @@ class FormWrapper extends Component {
     }
 
     handleSave = (dataToPush, index) => {
-        console.log(dataToPush, index);
         const newState = [...this.state.subInput];
-        console.log(newState);
         const newData = newState[index];
         newData.question = dataToPush.question;
         newData.condition = dataToPush.condition;
