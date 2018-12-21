@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import idb from 'idb';
 
 import QuestionInput from '../../../components/FromBuilder/QuestinInput/QuestionInput';
 import TextInput from '../../../components/FromBuilder/TextInput/TextInput';
@@ -13,24 +12,15 @@ class FormWrapper extends Component {
         type: 'text',
         condition: "===",
         value: '',
-        subInput: null,
-        formObject: []
+        subInput: [],
+        saved: false
     }
 
-    componentDidMount(){
-        if(this.props.formObject){
-            this.setState({
-                formObject: this.props.formObject
-            })
-        }
-    }
-
-    handleDelete = () => {
-        const newState = this.state.formObject.map(item => item);
-        newState.pop();
+    handleDelete = (index) => {
+        const newImputs = [...this.state.subInput]
+        newImputs.splice(index, 1);
         this.setState({
-            subInput: null,
-            formObject: newState
+            subInput: newImputs
         })  
     }
 
@@ -41,80 +31,98 @@ class FormWrapper extends Component {
         })
     }
 
-    handleAddInput = () => {
-            const object = {
-                question: this.state.question,
-                type: this.state.type,
-                condition: this.state.condition,
-                value: this.state.value
-            };
+    // handleAddInput = () => {
+    //     if(!this.state.saved){
+    //         const object = {
+    //             question: this.state.question,
+    //             type: this.state.type,
+    //             condition: this.state.condition,
+    //             value: this.state.value
+    //         };
+    //         console.log(object);
+    //         // this.setState({
+    //         //     saved: true
+    //         // }, this.handleSave(object))
 
-            const newState = [...this.state.formObject];
-            newState.push(object);
+    //     } else if(this.state.saved) {
+    //         // this.handleSubImput()
+    //     }       
+    // }
 
-            this.setState({
-                formObject: newState
-            }, ()=> this.handleSubImput() );
-    }
+    handleSubInput = () => {
+        this.props.handleSave(this.handleDataToPush(), this.props.index);
+        let newSubInputs;
+        if(!this.state.subInput.length === 0){
+            newSubInputs = [...this.props.data.answers];
+        } else {
+            newSubInputs = [...this.state.subInput];
+        }
 
-    handleSubImput = () => {
         if(this.state.type === "yes/no"){
+            newSubInputs.push({ type: "yes/no" })
             this.setState({
-                subInput: <BuildWrapper 
-                            type="yes/no"
-                            formObject={this.state.formObject} 
-                            handleDelete={this.handleDelete}/>
+                subInput: newSubInputs
             });
         } else if(this.state.type === "text"){
+            newSubInputs.push({ type: "text" })
             this.setState({
-                subInput: <BuildWrapper 
-                            type="text" 
-                            formObject={this.state.formObject} 
-                            handleDelete={this.handleDelete}/>
+                subInput: newSubInputs
             });
         } else if(this.state.type === "number"){
+            newSubInputs.push({  type: "number" })
             this.setState({
-                subInput: <BuildWrapper 
-                            type="number" 
-                            formObject={this.state.formObject} 
-                            handleDelete={this.handleDelete}/>
+                subInput: newSubInputs
             });
         }
     }
 
-    handleSave = () => {
-            const object = {
-                question: this.state.question,
-                type: this.state.type,
-                condition: this.state.condition,
-                value: this.state.value
-            };
+    handleSave = (dataToPush, index) => {
+        const newState = [...this.state.subInput];
+        const newData = newState[index];
+        newData.question = dataToPush.question;
+        newData.condition = dataToPush.condition;
+        newData.type = this.state.subInput[index].type;
+        newData.value = dataToPush.value;
+        if(!newData.answers){
+            newData.answers = [];
+        } else {
+            newData.answers = dataToPush.answers;
+        }
+        newState[index] = newData
 
-            const newState = [...this.state.formObject];
-            newState.push(object);
+        this.setState({
+            subInput: newState
+        }, () => {
+            const newSave = {...this.props.data,
+                answers: this.state.subInput}
 
-            this.setState({
-                formObject: newState
-            }, ()=> this.saveForm() );
+            this.props.handleSave(newSave, this.props.index);
+        })
     }
 
-    saveForm = () => {
-        const data = this.state.formObject;
-            idb.open('db-FormBuilder', 2)
-            .then(db => {
-                let tx = db.transaction('Forms', 'readwrite');
-                let store = tx.objectStore('Forms')
-                store.put(data);
-                return tx.complete;
-            })
-            .then( result => console.log('object stored'))
-    }
-
-    validateInputs = () => {
-        if(this.state.question && (this.props.value || this.state.value) && !this.state.subInput){
+    validateSave = () => {
+        if(this.state.question && (this.props.value || this.state.value) && !this.state.subInput.length){
             return true;
         }
         return false;
+    }
+
+    validateAdd = () => {
+        if(this.state.question && (this.props.value || this.state.value)){
+            return true;
+        }
+        return false;
+    }
+
+    handleDataToPush = () => {
+        const objectToPush = {
+            question: this.state.question,
+            type: this.state.type,
+            condition: this.state.condition,
+            value: this.state.value,
+            answers: []
+        };
+        return objectToPush;
     }
 
     render() {
@@ -137,21 +145,27 @@ class FormWrapper extends Component {
         }
 
         return (
-            <div>
+            <div className="Margin">
                 <div className="Form">
                     {conditionElement}
                     <QuestionInput 
                         handleChange={this.handleChange}
                         handleDelete={this.props.handleDelete}
-                        handleSave={this.handleSave}
-                        handleAddInput={this.handleAddInput}
-                        formObject={this.state.formObject}
+                        index={this.props.index}
+                        handleSave={() => this.props.handleSave(this.handleDataToPush(), this.props.index)}
+                        handleAddInput={this.handleSubInput}
                         question={this.state.question}
-                        disabled={this.validateInputs()}
-                        disableDelete={this.state.subInput}
+                        disableSave={this.validateSave()}
+                        disableAdd={this.validateAdd()}
                         type={this.state.type}/>
                 </div>
-                {this.state.subInput}
+                {this.state.subInput.map((el,index) => <BuildWrapper 
+                                                    type={el.type}
+                                                    key={index}
+                                                    index={index}
+                                                    data={this.state.subInput[index]}
+                                                    handleSave={this.handleSave}
+                                                    handleDelete={(index) => this.handleDelete(index)} />)}
             </div>
         )
     }

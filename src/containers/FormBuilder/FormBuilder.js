@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import idb from 'idb';
 
 import FormWrapper from './FormWrapper/FormWrapper';
 
@@ -23,15 +24,42 @@ class FormBuilder extends Component {
         })
     }
 
+    handleSave = (data, index) => {
+        const newForm = [...this.state.form];
+        newForm[index] = data;
+        this.setState({
+            form: newForm
+        }, () => console.log(this.state.form) )
+    }
+
+    handleSaveForm = (index) => {
+        const data = this.state.form[index];
+        console.log(data);
+            idb.open('db-FormBuilder', 2)
+            .then(db => {
+                let tx = db.transaction('Forms', 'readwrite');
+                let store = tx.objectStore('Forms')
+                store.put(data);
+                return tx.complete;
+            })
+            .then( result => console.log('object stored'))
+    }
+
     render(){
         return (
             <div>
                 <h3>Form builder</h3>
                 {this.state.form.map((form,index) => 
-                    <FormWrapper 
-                            key={index}
-                            value 
-                            handleDelete={() => this.handleDelete(index)} />)}             
+                    <div key={index}>
+                        <FormWrapper 
+                                
+                                index={index}
+                                value
+                                data={this.state.form[index]}
+                                handleSave={this.handleSave} 
+                                handleDelete={() => this.handleDelete(index)} />
+                        <button onClick={() => this.handleSaveForm(index)}>Store Form</button>
+                    </div>)}             
                 <button onClick={this.handleAddInput}>Add Input</button>
             </div>
         )

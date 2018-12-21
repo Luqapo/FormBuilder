@@ -1,8 +1,9 @@
 .Form {
-    width: 300px;
+    width: 350px;
     margin: 10px auto;
     border: 1px solid grey;
     padding: 10px;
+    padding-left: 30px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -10,6 +11,10 @@
     display: flex;
     justify-content: space-between;
     margin: 10px 0;
+}
+
+.Margin {
+    margin-left: 30px;
 }
 
 input, label {

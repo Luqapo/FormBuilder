@@ -28,16 +28,15 @@ const QuestionInput = (props) => {
                     </div>
                 </div>
                 <button onClick={props.handleAddInput}
-                        disabled={!props.disabled}>
+                        disabled={!props.disableAdd}>
                     Add Sub-Input
                 </button>
-                <button onClick={props.handleDelete}
-                        disabled={props.disableDelete}>
+                <button onClick={() => props.handleDelete(props.index)}>
                     Delete
                 </button>
                 <button onClick={props.handleSave}
-                        disabled={!props.disabled}>
-                    Save Form
+                        disabled={!props.disableSave}>
+                    Save Question
                 </button>
             </div>
         )
