@@ -18,7 +18,6 @@ const QuestionInput = (props) => {
                     <div className="FormControl">
                         <label>Type</label>
                         <select 
-                                value={props.type} 
                                 onChange={props.handleChange}
                                 name="type">
                             <option value="text">Text</option>

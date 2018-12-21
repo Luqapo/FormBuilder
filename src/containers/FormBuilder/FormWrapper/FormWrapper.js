@@ -31,24 +31,6 @@ class FormWrapper extends Component {
         })
     }
 
-    // handleAddInput = () => {
-    //     if(!this.state.saved){
-    //         const object = {
-    //             question: this.state.question,
-    //             type: this.state.type,
-    //             condition: this.state.condition,
-    //             value: this.state.value
-    //         };
-    //         console.log(object);
-    //         // this.setState({
-    //         //     saved: true
-    //         // }, this.handleSave(object))
-
-    //     } else if(this.state.saved) {
-    //         // this.handleSubImput()
-    //     }       
-    // }
-
     handleSubInput = () => {
         this.props.handleSave(this.handleDataToPush(), this.props.index);
         let newSubInputs;
@@ -79,19 +61,20 @@ class FormWrapper extends Component {
     handleSave = (dataToPush, index) => {
         const newState = [...this.state.subInput];
         const newData = newState[index];
+        if(!this.state.saved){
         newData.question = dataToPush.question;
         newData.condition = dataToPush.condition;
-        newData.type = this.state.subInput[index].type;
+        newData.newType = dataToPush.type;
         newData.value = dataToPush.value;
-        if(!newData.answers){
-            newData.answers = [];
+        newData.answers = [];
         } else {
             newData.answers = dataToPush.answers;
         }
         newState[index] = newData
 
         this.setState({
-            subInput: newState
+            subInput: newState,
+            saved: true
         }, () => {
             const newSave = {...this.props.data,
                 answers: this.state.subInput}

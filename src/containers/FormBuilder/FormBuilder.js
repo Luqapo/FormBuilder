@@ -29,12 +29,11 @@ class FormBuilder extends Component {
         newForm[index] = data;
         this.setState({
             form: newForm
-        }, () => console.log(this.state.form) )
+        })
     }
 
     handleSaveForm = (index) => {
         const data = this.state.form[index];
-        console.log(data);
             idb.open('db-FormBuilder', 2)
             .then(db => {
                 let tx = db.transaction('Forms', 'readwrite');

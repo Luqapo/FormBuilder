@@ -10,10 +10,9 @@ class Form extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props.data);
         this.setState({
             formJson: this.props.data
-        }, () => console.log(this.state.formJson))
+        })
     }
 
     handleChange = (event) => {
@@ -23,72 +22,47 @@ class Form extends Component {
     }
 
     validateInput = () => {
-        console.log(this.state.formJson.answers);
-        this.state.formJson.answers.map(el => {
+        this.state.formJson.answers.forEach(el => {
             if(el.value === this.state.value){
+                const answers = [...this.state.formResult];
+                answers.push({ question: this.state.formJson.question, answer: this.state.value })
                 this.setState({
                     formJson: el,
-                    value: ''
-                }, () => console.log(this.state.formJson))
-                //return console.log('Mam', el);
+                    value: '',
+                    formResult: answers
+                })
             }
-        })
-        // if(this.state.formJson[this.state.index + 1].condition === "==="){
-        //     if(this.state.formJson[this.state.index + 1].value === this.state.value){
-        //         const newReasult = {...this.state.formResult};
-        //         newReasult[this.state.index].answer = this.state.value
-        //         this.setState({
-        //             formResult: newReasult,
-        //             index: this.state.index + 1,
-        //             value: ''
-        //         })
-        //     }
-        // } else if(this.state.formJson[this.state.index + 1].condition === ">"){
-        //     if(Number(this.state.formJson[this.state.index + 1].value) < Number(this.state.value)){
-        //         const newReasult = {...this.state.formResult};
-        //         newReasult[this.state.index].answer = this.state.value
-        //         this.setState({
-        //             formResult: newReasult,
-        //             index: this.state.index + 1,
-        //             value: ''
-        //         })
-        //     }
-        // } else if(this.state.formJson[this.state.index + 1].condition === "<"){
-        //     if(Number(this.state.formJson[this.state.index + 1].value) > Number(this.state.value)){
-        //         const newReasult = {...this.state.formResult};
-        //         newReasult[this.state.index].answer = this.state.value
-        //         this.setState({
-        //             formResult: newReasult,
-        //             index: this.state.index + 1,
-        //             value: ''
-        //         })
-        //     }
-        // }
+        })  
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const newReasult = {...this.state.formResult};
-                newReasult[this.state.index].answer = this.state.value
+        const newResult = [...this.state.formResult];
+                newResult.push({question: this.state.formJson.question, answer: this.state.value });
                 this.setState({
-                    formResult: newReasult
+                    formResult: newResult
                 }, () => console.log(this.state.formResult) )
     }
 
     render(){
- 
-        const element = {...this.state.formJson};
         let endInfo = null;
+        const element = {...this.state.formJson};
+        if(this.state.formJson){
+            if(element.answers.length === 0){
+                endInfo = <p>No more questions. Thanks</p>;
+            }
+        }
         
-        if(this.state.index === this.state.formJson.length-1){
-            endInfo = <p>No more questions. Thanks</p>
+        let inputType = element.newType
+        if(!element.newType){
+            inputType = element.type
         }
 
         return (
             <div>
                 <form className="Form" onSubmit={this.handleSubmit}>
                     <Input 
-                        type={element.type} 
+                        type={inputType} 
                         question={element.question} 
                         name="value"
                         value={this.state.value}
