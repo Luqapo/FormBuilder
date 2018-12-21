@@ -12,8 +12,7 @@ class FormWrapper extends Component {
         type: 'text',
         condition: "===",
         value: '',
-        subInput: [],
-        saved: false
+        subInput: []
     }
 
     handleDelete = (index) => {
@@ -40,32 +39,25 @@ class FormWrapper extends Component {
             newSubInputs = [...this.state.subInput];
         }
 
-        if(this.state.type === "yes/no"){
-            newSubInputs.push({ type: "yes/no" })
-            this.setState({
-                subInput: newSubInputs
-            });
-        } else if(this.state.type === "text"){
-            newSubInputs.push({ type: "text" })
-            this.setState({
-                subInput: newSubInputs
-            });
-        } else if(this.state.type === "number"){
-            newSubInputs.push({  type: "number" })
-            this.setState({
-                subInput: newSubInputs
-            });
-        }
+        newSubInputs.push({ type: this.state.type })
+
+        this.setState({
+            subInput: newSubInputs
+        });    
     }
 
     handleSave = (dataToPush, index) => {
+        console.log(dataToPush, index);
         const newState = [...this.state.subInput];
+        console.log(newState);
         const newData = newState[index];
-        if(!this.state.saved){
         newData.question = dataToPush.question;
         newData.condition = dataToPush.condition;
-        newData.newType = dataToPush.type;
+        if(!newData.newType){
+            newData.newType = dataToPush.type;
+        }
         newData.value = dataToPush.value;
+        if(!newData.answers){
         newData.answers = [];
         } else {
             newData.answers = dataToPush.answers;
@@ -73,8 +65,7 @@ class FormWrapper extends Component {
         newState[index] = newData
 
         this.setState({
-            subInput: newState,
-            saved: true
+            subInput: newState
         }, () => {
             const newSave = {...this.props.data,
                 answers: this.state.subInput}
