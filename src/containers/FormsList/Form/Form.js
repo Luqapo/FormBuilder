@@ -23,7 +23,7 @@ class Form extends Component {
 
     validateInput = () => {
         this.state.formJson.answers.forEach(el => {
-            if(el.value === this.state.value){
+            if(this.chceckCondition(el.value, el.condition)){
                 const answers = [...this.state.formResult];
                 answers.push({ question: this.state.formJson.question, answer: this.state.value })
                 this.setState({
@@ -33,6 +33,15 @@ class Form extends Component {
                 })
             }
         })  
+    }
+
+    chceckCondition = (value, condition) => {
+        if(condition === '>'){
+            return Number(this.state.value) > Number(value);
+        } else if (condition === '<'){
+            return Number(this.state.value) < Number(value);
+        }
+        return value === this.state.value; 
     }
 
     handleSubmit = (event) => {
