@@ -3,7 +3,7 @@ import React from 'react';
 const TextInput = (props) => {
         return (
                 <div className="FormControl">
-                    <label>Condiotion</label>
+                    <label>Condition</label>
                     <select>
                         <option value="===">Equals</option>
                     </select>

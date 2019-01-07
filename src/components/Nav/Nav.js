@@ -16,7 +16,7 @@ const Nav = (props) => {
         <nav>
             <ul className="Nav">
                 <li onClick={handleBuilder}>Form Builder</li>
-                <li onClick={handleForm}>From</li>
+                <li onClick={handleForm}>Form</li>
             </ul>
         </nav>
     )

@@ -10,7 +10,7 @@ const RadioInput = (props) =>{
                     <select name="value" 
                         onChange={props.handleChange}
                         value={props.value}>
-                        <option value="">Slect</option>
+                        <option value="">Select</option>
                         <option value="no">No</option>
                         <option value="yes">Yes</option>
                     </select>

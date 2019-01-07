@@ -34,7 +34,7 @@ const Input = (props) => {
                     <select name="value" 
                             onChange={props.onChange} 
                             value={props.value}>
-                        <option value="">Slect</option>
+                        <option value="">Select</option>
                         <option value="no">No</option>
                         <option value="yes">Yes</option>
                     </select>   

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import QuestionInput from '../../../components/FromBuilder/QuestinInput/QuestionInput';
-import TextInput from '../../../components/FromBuilder/TextInput/TextInput';
-import NumberInput from '../../../components/FromBuilder/NumberInput/NumberInput';
-import RadioInput from '../../../components/FromBuilder/RadioInput/RadioInput';
+import QuestionInput from '../../../components/FormBuilder/QuestionInput/QuestionInput';
+import TextInput from '../../../components/FormBuilder/TextInput/TextInput';
+import NumberInput from '../../../components/FormBuilder/NumberInput/NumberInput';
+import RadioInput from '../../../components/FormBuilder/RadioInput/RadioInput';
 import BuildWrapper from '../../../components/BuildWrapper/BuildWrapper'
 
 class FormWrapper extends Component {
@@ -16,10 +16,10 @@ class FormWrapper extends Component {
     }
 
     handleDelete = (index) => {
-        const newImputs = [...this.state.subInput]
-        newImputs.splice(index, 1);
+        const newInputs = [...this.state.subInput]
+        newInputs.splice(index, 1);
         this.setState({
-            subInput: newImputs
+            subInput: newInputs
         })  
     }
 
