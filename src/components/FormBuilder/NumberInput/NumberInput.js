@@ -4,7 +4,7 @@ const NumberInput = (props) => {
         return (
             <div>
                 <div className="FormControl">
-                    <label>Condiotion</label>
+                    <label>Condition</label>
                     <select value={props.condition}
                             name="condition"
                             onChange={props.handleChange}>
